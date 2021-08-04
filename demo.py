@@ -1,4 +1,4 @@
-from eset_rulegen.operator import Operator
+from eset_rulegen import Operator
 from eset_rulegen import Description
 from eset_rulegen import Definition
 from eset_rulegen import Condition

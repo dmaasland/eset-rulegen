@@ -150,6 +150,12 @@ Let's say we want to add other script interpreters to our rule as well. We can d
     )
 ```
 
+We also need an extra import for that:
+
+```python
+from eset_rulegen import Operator
+```
+
 We then need to wrap them all up into an **`Operator`** object:
 
 ```python
@@ -170,6 +176,7 @@ process = Process(
 Complete script:
 
 ```python
+from eset_rulegen import Operator
 from eset_rulegen import Description
 from eset_rulegen import Definition
 from eset_rulegen import Condition
