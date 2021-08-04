@@ -167,7 +167,7 @@ process = Process(
 )
 ```
 
-Complete scipt:
+Complete script:
 
 ```python
 from eset_rulegen.operator import Operator
