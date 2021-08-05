@@ -1,4 +1,4 @@
-# ESET Detection & Response rule generator
+# ESET Enterprise Inspector rule generator
 
 Please refer to the rule guide for a full reference of all available options. The rule guide can be found [here](https://help.eset.com/tools/eei/eei_rules_guide_1.6.pdf).
 
