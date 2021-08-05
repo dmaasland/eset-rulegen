@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from eset_rulegen.exceptions import OperationError
 
+
 @dataclass
 class Operation:
 

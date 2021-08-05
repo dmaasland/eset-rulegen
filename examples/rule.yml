@@ -1,0 +1,80 @@
+rule:
+  description:
+    name: WebClient service was forced to authenticate (PetitPotam) [EN0109A]
+    os: Windows
+    mitreattackid: [T1187]
+    explanation: >-
+      The WebClient on Windows can be used to connect to resources via WebDAV.
+      If authentication is requested by the server, the client will (in some circumstances)
+      provide it automatically.
+    malicious_causes: >-
+      Privilege escalation using NTLM relay techniques.
+      See: https://mobile.twitter.com/tifkin_/status/1418855927575302144
+    benign_causes: Not known
+    recommended_actions: >-
+      Evaluate the connection to determine if it is legitimate or not
+    category: Exploitation
+    severity: 80
+
+  definition:
+    parentprocess:
+      operator:
+        type: and
+        content:
+        - condition:
+            component: FileItem
+            property: Path
+            condition: is
+            value: "%SYSTEM%\\"
+
+        - condition:
+            component: FileItem
+            property: FileNameWithoutExtension
+            condition: is
+            value: svchost
+        - condition:
+
+            component: ProcessInfo
+            property: CommandLine
+            condition: is
+            value: "-k LocalService -p -s WebClient"
+
+    process:
+      operator:
+        type: and
+        content:
+        - condition:
+            component: FileItem
+            property: Path
+            condition: is
+            value: "%SYSTEM%\\"
+
+        - condition:
+            component: FileItem
+            property: FileNameWithoutExtension
+            condition: is
+            value: rundll32
+
+        - operator:
+            type: and
+            content:
+            - condition:
+                component: ProcessInfo
+                property: CommandLine
+                condition: starts
+                value: "C:\\WINDOWS\\system32\\davclnt.dll,DavSetCookie"
+
+            - condition:
+                component: ProcessInfo
+                property: CommandLine
+                condition: contains
+                value: "@"
+
+            - condition:
+                component: ProcessInfo
+                property: CommandLine
+                condition: ends
+                value: "/PIPE/srvsvc"
+
+  actions:
+  - TriggerDetection

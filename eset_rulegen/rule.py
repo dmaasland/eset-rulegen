@@ -5,14 +5,15 @@ from eset_rulegen.parentprocess import ParentProcess
 from eset_rulegen.process import Process
 from eset_rulegen.condition import Condition
 from eset_rulegen.operations import Operations
-from eset_rulegen.operations import Operation
+from eset_rulegen.operation import Operation
+from eset_rulegen.actions import Actions
+from eset_rulegen.description import Description
+from eset_rulegen.exceptions import DescriptionError
+
 import xml.etree.cElementTree as ET
 
 from dataclasses import dataclass
 
-from .actions import Actions
-from .description import Description
-from .exceptions import DescriptionError
 
 @dataclass
 class Rule:
@@ -24,7 +25,6 @@ class Rule:
     def __post_init__(self):
         """Create an empty rule xml object"""
         self.rule = ET.Element('rule')
-
 
     def _xml(self):
         """Create an XML object from the Rule class"""
@@ -52,7 +52,7 @@ class Rule:
 
         for parent_field in parent_fields:
             if parent_field is not None:
-                self._build_definition(definition, parent_field)        
+                self._build_definition(definition, parent_field)
 
     def _build_definition(self, definition, item):
 
@@ -66,7 +66,7 @@ class Rule:
         elif isinstance(item, Ancestor):
             definition = ET.SubElement(
                 definition,
-                'ancestor', 
+                'ancestor',
                 distance=str(item.distance),
                 unique=str(item.unique)
             )
@@ -91,7 +91,7 @@ class Rule:
         elif isinstance(item, Condition):
             definition = ET.SubElement(
                 definition,
-                'condition', 
+                'condition',
                 component=item.component,
                 property=item.property,
                 condition=item.condition,
@@ -102,7 +102,7 @@ class Rule:
         elif isinstance(item, Operation):
             definition = ET.SubElement(
                 definition,
-                'operation', 
+                'operation',
                 type=item.type
             )
             return
@@ -111,7 +111,6 @@ class Rule:
             raise DescriptionError(f'Description item "{item}" not supported!')
 
         self._build_definition(definition, item.content)
-
 
     def _description(self):
 
@@ -127,30 +126,47 @@ class Rule:
         recommended_actions = self.description.recommended_actions
         severity = self.description.severity
 
-        ET.SubElement(description, 'name').text = name
-        ET.SubElement(description, 'category').text = category
+        ET.SubElement(
+            description, 'name'
+        ).text = name
+        ET.SubElement(
+            description, 'category'
+        ).text = category
 
         if explanation is not None:
-            ET.SubElement(description, 'explanation').text = explanation
+            ET.SubElement(
+                description, 'explanation'
+            ).text = explanation
 
         if os is not None:
-            ET.SubElement(description, 'os').text = os
+            ET.SubElement(
+                description, 'os'
+            ).text = os
 
         if mitreattackid:
-            ET.SubElement(description, 'mitreattackid').text = ','.join(mitreattackid)
+            ET.SubElement(
+                description, 'mitreattackid'
+            ).text = ','.join(mitreattackid)
 
         if malicious_causes is not None:
-            ET.SubElement(description, 'malicious_causes').text = malicious_causes
+            ET.SubElement(
+                description, 'malicious_causes'
+            ).text = malicious_causes
 
         if benign_causes is not None:
-            ET.SubElement(description, 'benign_causes').text = benign_causes
+            ET.SubElement(
+                description, 'benign_causes'
+            ).text = benign_causes
 
         if recommended_actions is not None:
-            ET.SubElement(description, 'recommended_actions').text = recommended_actions
+            ET.SubElement(
+                description, 'recommended_actions'
+            ).text = recommended_actions
 
         if severity is not None:
-            ET.SubElement(description, 'severity').text = str(severity)
-
+            ET.SubElement(
+                description, 'severity'
+            ).text = str(severity)
 
     def _actions(self):
 
@@ -159,7 +175,6 @@ class Rule:
 
             for action in self.actions.actions:
                 ET.SubElement(actions, 'action', name=action)
-
 
     def xml_string(self):
         """Convert an XML object to a string"""
@@ -174,8 +189,6 @@ class Rule:
 
         return xml_string
 
-
     def __repr__(self):
         """Just print the formatted XML"""
         return self.xml_string()
-

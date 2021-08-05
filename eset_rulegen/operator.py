@@ -1,6 +1,7 @@
 from eset_rulegen.exceptions import OperatorError
 from dataclasses import dataclass
 
+
 @dataclass
 class Operator:
 

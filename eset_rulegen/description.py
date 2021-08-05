@@ -3,6 +3,7 @@ from eset_rulegen.exceptions import DescriptionError
 from dataclasses import dataclass
 from dataclasses import field
 
+
 @dataclass
 class Description:
 
@@ -15,7 +16,6 @@ class Description:
     benign_causes: str = None
     recommended_actions: str = None
     severity: int = None
-
 
     def __post_init__(self):
 
