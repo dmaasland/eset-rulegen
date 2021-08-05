@@ -32,7 +32,7 @@ This object will represent the description of our rule. Now create the condition
 
 ```python
 condition = Condition(
-    component='FileItem',
+    component='Module',
     property='OriginalFileName',
     condition='is',
     value='POWERSHELL.EXE'
@@ -115,7 +115,7 @@ Note the added **`print(rule)`** at the end. When we execute this script a new r
 <rule>
   <definition>
     <process>
-      <condition component="FileItem" property="OriginalFilename" condition="is" value="POWERSHELL.EXE" />
+      <condition component="Module" property="OriginalFilename" condition="is" value="POWERSHELL.EXE" />
     </process>
   </definition>
   <description>
@@ -129,21 +129,21 @@ Note the added **`print(rule)`** at the end. When we execute this script a new r
 Let's say we want to add other script interpreters to our rule as well. We can do that by creating multiple conditions:
 ```python
     condition1 = Condition(
-        component='FileItem',
+        component='Module',
         property='OriginalFilename',
         condition='is',
         value='POWERSHELL.EXE'
     )
 
     condition2 = Condition(
-        component='FileItem',
+        component='Module',
         property='OriginalFilename',
         condition='is',
         value='WSCRIPT.EXE'
     )
 
     condition3 = Condition(
-        component='FileItem',
+        component='Module',
         property='OriginalFilename',
         condition='is',
         value='CSCRIPT.EXE'
