@@ -2,6 +2,13 @@
 
 Please refer to the rule guide for a full reference of all available options. The rule guide can be found [here](https://help.eset.com/tools/eei/eei_rules_guide_1.6.pdf).
 
+## Installing
+Install directly from the git repository using the following command:
+
+```shell
+pip install git+https://github.com/dmaasland/eset-rulegen.git
+```
+
 ## Simple example
 Before you start make sure the **`eset_rulegen`** library is imported:
 
