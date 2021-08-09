@@ -104,10 +104,8 @@ class Rule:
                 definition,
                 'operation',
                 type=item.type,
-                content=item.content
                 
             )
-            return
 
         else:
             raise DescriptionError(f'Description item "{item}" not supported!')
