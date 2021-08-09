@@ -103,7 +103,9 @@ class Rule:
             definition = ET.SubElement(
                 definition,
                 'operation',
-                type=item.type
+                type=item.type,
+                content=item.content
+                
             )
             return
 
