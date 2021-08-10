@@ -9,3 +9,4 @@ from eset_rulegen.process import Process
 from eset_rulegen.condition import Condition
 from eset_rulegen.operations import Operations
 from eset_rulegen.operation import Operation
+from eset_rulegen.yamlrule import YamlRule
